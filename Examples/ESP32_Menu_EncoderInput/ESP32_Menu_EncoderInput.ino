@@ -814,7 +814,7 @@ ItemMenu MainMenu(&Display);
 // you can have an item menu call other item menus an edit menu can call an edit menu but in a round about way--not recommended
 //ClassName YourMenuName(&DisplayObject, True=Touch input, False(Default)=mechanical input);
 EditMenu OptionMenu(&Display);        // default is false, need not specify
-EditMenu ColorMenu(&Display, false);  // or you can still call false to force mechanical input selection
+EditMenu ColorMenu(&Display);  // or you can still call false to force mechanical input selection
 EditMenu WirelessMenu(&Display);
 
 ESP32Encoder encoder;
