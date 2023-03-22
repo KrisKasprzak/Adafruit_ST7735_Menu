@@ -95,6 +95,8 @@ public:
 	void MoveUp();
 
 	void MoveDown();
+	
+	void setInitialItem(int ItemID);
 
 	void setTitleColors(uint16_t TitleTextColor, uint16_t TitleFillColor);
 
@@ -224,6 +226,8 @@ public:
 	void MoveDown();
 
 	int selectRow();
+	
+	void setInitialItem(int ItemID);
 
 	void setTitleColors(uint16_t TitleTextColor, uint16_t TitleFillColor);
 
