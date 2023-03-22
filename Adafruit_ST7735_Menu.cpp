@@ -63,8 +63,6 @@ void EditMenu::init(uint16_t TextColor, uint16_t BackgroundColor,
 
   isy = tbt + tbh + mm;  // where to start the menu item from top, note because array is 1 based we start drawing down a row--so back off a row, but pad 10
 
-
-
   irh = ItemRowHeight;  // select bar height
   irw = tbw - isx;    // select bar width, default to full width
   col = MenuColumn;
@@ -88,6 +86,23 @@ void EditMenu::init(uint16_t TextColor, uint16_t BackgroundColor,
   radius = 0;
   thick = 0;
 }
+
+void EditMenu::setInitialItem(int ItemID){
+	
+	// not taking into account if the first item is disabled
+	if (ItemID > totalID) {
+		ItemID = 0;
+	}
+	
+	currentID = ItemID;  
+	cr = ItemID; 
+	
+}
+
+
+
+
+
 
 int EditMenu::addNI(const char *ItemText, float Data, float LowLimit, float HighLimit, float Increment,
                     byte DecimalPlaces, const char **ItemMenuText) {
@@ -1006,6 +1021,19 @@ void ItemMenu::init(uint16_t TextColor, uint16_t BackgroundColor,
   thick = 0;
 
 }
+
+
+void ItemMenu::setInitialItem(int ItemID){
+	
+	// not taking into account if the first item is disabled
+	if (ItemID > totalID) {
+		ItemID = 0;
+	}
+
+	currentID = ItemID;  
+	cr = ItemID; 
+}
+
 
 int ItemMenu::addNI(const char *ItemLabel) {
 
