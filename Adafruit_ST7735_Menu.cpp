@@ -21,10 +21,6 @@
   On a personal note, if you develop an application or product using this library
   and make millions of dollars, I'm happy for you!
 
-  rev   date      author        change
-  1.0   1/2022      kasprzak      initial code
-  2.0   3/2023      kasprzak      added more functions
-
 */
 
 #include <Adafruit_ST7735_Menu.h>  
@@ -100,16 +96,11 @@ void EditMenu::setInitialItem(int ItemID){
 }
 
 
-
-
-
-
 int EditMenu::addNI(const char *ItemText, float Data, float LowLimit, float HighLimit, float Increment,
                     byte DecimalPlaces, const char **ItemMenuText) {
 
   totalID++;
   strcpy(itemlabel[totalID], ItemText);
-  data[totalID] = Data;
   low[totalID] = LowLimit;
   high[totalID] = HighLimit;
   inc[totalID] = Increment;
@@ -134,7 +125,6 @@ int EditMenu::addMono(const char *ItemText, float Data, float LowLimit, float Hi
 
   totalID++;
   strcpy(itemlabel[totalID], ItemText);
-  data[totalID] = Data;
   low[totalID] = LowLimit;
   high[totalID] = HighLimit;
   inc[totalID] = Increment;
@@ -163,7 +153,6 @@ int EditMenu::add565(const char *ItemText, float Data, float LowLimit, float Hig
 
   totalID++;
   strcpy(itemlabel[totalID], ItemText);
-  data[totalID] = Data;
   low[totalID] = LowLimit;
   high[totalID] = HighLimit;
   inc[totalID] = Increment;
@@ -529,10 +518,10 @@ void EditMenu::drawItems() {
     // write new val
     d->setCursor(col , isy - irh + (irh * i) + ioy);
     if (haslist[i + sr]) {
-      d->print(itemtext[i + sr][(int) data[i + sr]]);
+      d->print(itemtext[i + sr][(int) value[i + sr]]);
     }
     else {
-      d->print(data[i + sr], dec[i + sr]);
+      d->print(value[i + sr], dec[i + sr]);
     }
 
   }
@@ -712,10 +701,10 @@ void EditMenu::drawRow(int ID) {
 
     d->setCursor(col , isy - irh + (irh * (ID - sr)) + ioy);
     if (haslist[ID]) {
-      d->print(itemtext[ID][(int) data[ID]]);
+      d->print(itemtext[ID][(int) value[ID]]);
     }
     else {
-      d->print(data[ID], dec[ID]);
+      d->print(value[ID], dec[ID]);
     }
 
     // write bitmap
@@ -758,29 +747,29 @@ void EditMenu::incrementUp() {
 
   if (haslist[currentID]) {
 
-    if ((data[currentID] + inc[currentID]) < high[currentID]) {
-      data[currentID] += inc[currentID];
+    if ((value[currentID] + inc[currentID]) < high[currentID]) {
+      value[currentID] += inc[currentID];
       d->fillRect(col, isy - irh + (irh * cr) + thick, irw - col - (2 * thick), irh - (2 * thick), isbc);
       d->setCursor(col + iox , isy - irh + (irh * cr) + ioy);
-      d->print(itemtext[currentID][(int) data[currentID]]);
+      d->print(itemtext[currentID][(int) value[currentID]]);
     }
     else {
-      data[currentID] = low[currentID];
+      value[currentID] = low[currentID];
       d->fillRect(col, isy - irh + (irh * cr) + thick, irw - col - (2 * thick), irh - (2 * thick), isbc);
       d->setCursor(col, isy - irh + (irh * cr) + ioy);
-      d->print(itemtext[currentID][(int) data[currentID]]);
+      d->print(itemtext[currentID][(int) value[currentID]]);
     }
 
   }
   else {
 
-    data[currentID] += inc[currentID];
-    if (data[currentID] > high[currentID]) {
-      data[currentID] = low[currentID];
+    value[currentID] += inc[currentID];
+    if (value[currentID] > high[currentID]) {
+      value[currentID] = low[currentID];
     }
     d->fillRect(col, isy - irh + (irh * cr) + thick, irw - col - (2 * thick), irh - (2 * thick), isbc);
     d->setCursor(col +  iox, isy - irh + (irh * cr) + ioy);
-    d->print(data[currentID], dec[currentID]);
+    d->print(value[currentID], dec[currentID]);
   }
 
   if (IconType[currentID] == ICON_MONO) {
@@ -790,7 +779,7 @@ void EditMenu::incrementUp() {
     draw565Bitmap(icox,  icoy + isy - irh + (irh * cr), item565Bitmap[currentID], bmp_w[currentID], bmp_h[currentID] );
   }
   delay(incdelay);
-  value[currentID] = data[currentID];
+  value[currentID] = value[currentID];
   item = currentID;
 }
 
@@ -802,27 +791,27 @@ void EditMenu::incrementDown() {
   d->setFont(itemf);
   d->setTextColor(istc);
   if (haslist[currentID]) {
-    if ((data[currentID] - inc[currentID]) >= low[currentID]) {
-      data[currentID] -= inc[currentID];
+    if ((value[currentID] - inc[currentID]) >= low[currentID]) {
+      value[currentID] -= inc[currentID];
       d->fillRect(col , isy - irh + (irh * cr) + thick, irw - col - (2 * thick), irh - (2 * thick), isbc);
       d->setCursor(col , isy - irh + (irh * cr) + ioy);
-      d->print(itemtext[currentID][(int) data[currentID]]);
+      d->print(itemtext[currentID][(int) value[currentID]]);
     }
     else {
-      data[currentID] = high[currentID] - 1;
+      value[currentID] = high[currentID] - 1;
       d->fillRect(col , isy - irh + (irh * cr) + thick, irw - col - (2 * thick), irh - (2 * thick), isbc);
       d->setCursor(col, isy - irh + (irh * cr) + ioy);
-      d->print(itemtext[currentID][(int) data[currentID]]);
+      d->print(itemtext[currentID][(int) value[currentID]]);
     }
   }
   else {
-    data[currentID] -= inc[currentID];
-    if (data[currentID] < low[currentID]) {
-      data[currentID] = high[currentID];
+    value[currentID] -= inc[currentID];
+    if (value[currentID] < low[currentID]) {
+      value[currentID] = high[currentID];
     }
     d->fillRect(col, isy - irh + (irh * cr) + thick, irw - col - (2 * thick), irh - (2 * thick), isbc);
     d->setCursor(col , isy - irh + (irh * cr) + ioy);
-    d->print(data[currentID], dec[currentID]);
+    d->print(value[currentID], dec[currentID]);
   }
 
   if (IconType[currentID] == ICON_MONO) {
@@ -832,7 +821,6 @@ void EditMenu::incrementDown() {
     draw565Bitmap(icox,  icoy + isy  - irh + (irh * cr), item565Bitmap[currentID], bmp_w[currentID], bmp_h[currentID] );
   }
   delay(incdelay);
-  value[currentID] = data[currentID];
   item = currentID;
 
 }
@@ -924,7 +912,6 @@ bool EditMenu::getEnableState(int ID) {
 
 void EditMenu::SetItemValue(int ID, float ItemValue) {
   value[ID] = ItemValue;
-  data[ID] = ItemValue;
 }
 
 void EditMenu::drawMonoBitmap(int16_t x, int16_t y, const unsigned char *bitmap, uint8_t w, uint8_t h, uint16_t color) {
