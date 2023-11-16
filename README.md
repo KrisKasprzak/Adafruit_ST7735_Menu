@@ -23,8 +23,8 @@ This library includes two menu objects
 <br>
 To activate touch usage specify true in the menu object creation step
 
-  <li>EditMenu(Adafruit_ILI9341 *Adafruit_ST7735);</li>
-  <li>ItemMenu(Adafruit_ILI9341 *Adafruit_ST7735);</li>
+  <li>EditMenu(Adafruit_ILI9341 *Adafruit_ST7735); // EditMenu(&MyDisplay);</li>
+  <li>ItemMenu(Adafruit_ILI9341 *Adafruit_ST7735); // ItemMenu(&MyDisplay);</li>
 
 <br>
 <br>
