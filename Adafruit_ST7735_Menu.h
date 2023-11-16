@@ -66,6 +66,8 @@
 #define  BUTTON_PRESSED 1
 #define  BUTTON_NOTPRESSED 0
 
+#define  ADAFRUIT_ST7735_MENU_VERSION 4.0
+
 class  EditMenu {
 		
 public:
