@@ -25,6 +25,7 @@
 	1.0		1/2022			kasprzak			initial code
 	2.0   1/2022      kasprzak      added touch support
 	3.0   3/2022      kasprzak      fixed font issue with MEGA
+ 	4.0   11/2023     kasprzak      fixed ability to set a value with value property (as opposed to using the SetItemValue method
 
 	// Website for generating icons
 	// https://javl.github.io/image2cpp/
@@ -176,7 +177,6 @@ private:
 	int sr, pr;
 	bool moreup = false, moredown = false;
 	uint16_t col;
-	float data[MAX_OPT];
 	float low[MAX_OPT];
 	float high[MAX_OPT];
 	float inc[MAX_OPT];
