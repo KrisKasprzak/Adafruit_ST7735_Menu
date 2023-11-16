@@ -1,6 +1,4 @@
-<b><h2><center>Version 1.0 updated 3/16/2023</center></h1></b>
-1. Initial library posting
-
+<b><h2><center>Version 4.0 updated 11/16/2023</center></h1></b>
 
 <b><h2><center>Menu System for Adafruit_ST7735 displays with mechanical input</center></h1></b>
 
